@@ -1,4 +1,6 @@
 class Campaign < ApplicationRecord
+    belongs_to :business
+
     has_many :collabs
     has_many :content_creators, through: :collabs
 

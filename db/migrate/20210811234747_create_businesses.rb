@@ -13,6 +13,7 @@ class CreateBusinesses < ActiveRecord::Migration[6.1]
       t.string :state
       t.integer :zip
       t.string :country
+      t.text :website
 
       t.timestamps
     end
