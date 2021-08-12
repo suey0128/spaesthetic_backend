@@ -1,0 +1,51 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_id: 1
+  name: MyString
+  image: MyString
+  location_name: MyString
+  location_type: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: 1
+  country: MyString
+  compensation_type: MyString
+  compensation_market_value: 1.5
+  start_date: 2021-08-11
+  end_date: 2021-08-11
+  application_deadline: 2021-08-11
+  require_following_minimum: 1
+  require_following_location: MyString
+  require_following_female_ratio: 1
+  require_gender: MyString
+  require_others: MyString
+  description: MyString
+  content_sent_by: 2021-08-11
+  must_post_by: 2021-08-11
+
+two:
+  business_id: 1
+  name: MyString
+  image: MyString
+  location_name: MyString
+  location_type: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: 1
+  country: MyString
+  compensation_type: MyString
+  compensation_market_value: 1.5
+  start_date: 2021-08-11
+  end_date: 2021-08-11
+  application_deadline: 2021-08-11
+  require_following_minimum: 1
+  require_following_location: MyString
+  require_following_female_ratio: 1
+  require_gender: MyString
+  require_others: MyString
+  description: MyString
+  content_sent_by: 2021-08-11
+  must_post_by: 2021-08-11

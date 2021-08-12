@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+  password_digest: MyString
+  gender: MyString
+  instagram_username: MyString
+  instagram_url: MyText
+  instagram_follower: 1
+  instagram_feamle_follower_ratio: 1
+  instagram_top1_follow_location: MyString
+  instagram_connection_permission: false
+  ave_rate_per_campaign: 1
+  paypal_account: MyString
+
+two:
+  username: MyString
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+  password_digest: MyString
+  gender: MyString
+  instagram_username: MyString
+  instagram_url: MyText
+  instagram_follower: 1
+  instagram_feamle_follower_ratio: 1
+  instagram_top1_follow_location: MyString
+  instagram_connection_permission: false
+  ave_rate_per_campaign: 1
+  paypal_account: MyString

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content_creator_id: 1
+  campaign_id: 1
+  note: MyString
+
+two:
+  content_creator_id: 1
+  campaign_id: 1
+  note: MyString
