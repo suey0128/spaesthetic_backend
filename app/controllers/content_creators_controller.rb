@@ -48,7 +48,7 @@ class ContentCreatorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_creator_params
-      params.require(:content_creator).permit(:username, :email, :first_name, :last_name, :password_digest, :gender, :instagram_username, :instagram_url, :instagram_follower, :instagram_feamle_follower_ratio, :instagram_top1_follow_location, :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account)
+      params.require(:content_creator).permit(:first_name, :last_name, :gender, :instagram_username, :instagram_url, :instagram_follower, :instagram_feamle_follower_ratio, :instagram_top1_follow_location, :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account)
     end
 
     def render_not_found_response

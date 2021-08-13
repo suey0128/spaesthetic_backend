@@ -1,6 +1,4 @@
-class Business < ApplicationRecord
-    has_secure_password
-    
+class Business < ApplicationRecord  
     has_many :campaigns
 
     has_many :reviews, as: :reviewee, class_name: "Review"
@@ -14,6 +12,8 @@ class Business < ApplicationRecord
 
     has_many :written_messages, as: :writer, class_name: "Message"
     has_many :receivers, through: :written_messages, source: :receiver, source_type:"ContentCreator"
+
+    has_one :user, as: :platform_user
 
     # Returns the hash digest of the given string.
     def self.digest(string)

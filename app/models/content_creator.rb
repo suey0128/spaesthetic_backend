@@ -1,6 +1,4 @@
 class ContentCreator < ApplicationRecord
-    has_secure_password
-
     has_many :collabs
     has_many :campaigns, through: :collabs
 
@@ -25,10 +23,6 @@ class ContentCreator < ApplicationRecord
     has_many :written_messages, as: :writer, class_name: "Message"
     has_many :receivers, through: :written_messages, source: :receiver, source_type:"Business"
 
-    # Returns the hash digest of the given string.
-    def self.digest(string)
-        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                    BCrypt::Engine.cost
-        BCrypt::Password.create(string, cost: cost)
-    end
+    has_one :user, as: :platform_user
+
 end

@@ -1,11 +1,11 @@
 class CreateContentCreators < ActiveRecord::Migration[6.1]
   def change
     create_table :content_creators do |t|
-      t.string :username
-      t.string :email
+      # t.string :username
+      # t.string :email
       t.string :first_name
       t.string :last_name
-      t.string :password_digest
+      # t.string :password_digest
       t.string :gender
       t.string :instagram_username
       t.text :instagram_url
