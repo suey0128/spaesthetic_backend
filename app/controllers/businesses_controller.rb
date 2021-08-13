@@ -1,5 +1,7 @@
 class BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   # GET /businesses
   def index
@@ -15,13 +17,8 @@ class BusinessesController < ApplicationController
 
   # POST /businesses
   def create
-    @business = Business.new(business_params)
-
-    if @business.save
-      render json: @business, status: :created, location: @business
-    else
-      render json: @business.errors, status: :unprocessable_entity
-    end
+    @business = Business.create!(business_params)
+    render json: @business, status: :created, location: @business
   end
 
   # PATCH/PUT /businesses/1
@@ -46,6 +43,15 @@ class BusinessesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def business_params
-      params.require(:business).permit(:username, :name, :email, :password_digest, :business_type, :logo, :description, :address, :city, :state, :zip, :country)
+      params.permit(:username, :name, :email, :password, :password_confirmation, :business_type, :logo, :description, :address, :city, :state, :zip, :country, :website)
+    end
+
+
+    def render_not_found_response
+      render json: {error: "Business not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+      render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 end

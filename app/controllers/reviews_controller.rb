@@ -48,4 +48,12 @@ class ReviewsController < ApplicationController
     def review_params
       params.require(:review).permit(:reviewee_id, :reviewee_type, :reviewer_id, :reviewer_type, :rating, :content)
     end
+
+    def render_not_found_response
+      render json: {error: "Camper not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+      render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+    end
 end

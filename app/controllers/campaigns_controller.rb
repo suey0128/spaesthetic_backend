@@ -1,5 +1,7 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   # GET /campaigns
   def index
@@ -47,5 +49,14 @@ class CampaignsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def campaign_params
       params.require(:campaign).permit(:business_id, :name, :image, :location_name, :location_type, :address, :city, :state, :zip, :country, :compensation_type, :compensation_market_value, :start_date, :end_date, :application_deadline, :require_following_minimum, :require_following_location, :require_following_female_ratio, :require_gender, :require_others, :description, :content_sent_by, :must_post_by)
+    end
+
+
+    def render_not_found_response
+      render json: {error: "Camper not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+      render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 end

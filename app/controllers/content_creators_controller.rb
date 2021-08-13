@@ -1,5 +1,7 @@
 class ContentCreatorsController < ApplicationController
   before_action :set_content_creator, only: [:show, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   # GET /content_creators
   def index
@@ -47,5 +49,13 @@ class ContentCreatorsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def content_creator_params
       params.require(:content_creator).permit(:username, :email, :first_name, :last_name, :password_digest, :gender, :instagram_username, :instagram_url, :instagram_follower, :instagram_feamle_follower_ratio, :instagram_top1_follow_location, :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account)
+    end
+
+    def render_not_found_response
+      render json: {error: "Camper not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+      render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 end

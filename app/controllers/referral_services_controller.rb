@@ -48,4 +48,12 @@ class ReferralServicesController < ApplicationController
     def referral_service_params
       params.require(:referral_service).permit(:content_creator_id, :campaign_id, :employee_name)
     end
+
+    def render_not_found_response
+      render json: {error: "Camper not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+      render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+    end
 end

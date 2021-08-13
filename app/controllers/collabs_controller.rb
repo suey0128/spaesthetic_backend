@@ -1,5 +1,7 @@
 class CollabsController < ApplicationController
   before_action :set_collab, only: [:show, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   # GET /collabs
   def index
@@ -47,5 +49,13 @@ class CollabsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def collab_params
       params.require(:collab).permit(:content_creator_id, :campaign_id, :note)
+    end
+
+    def render_not_found_response
+      render json: {error: "Camper not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+      render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 end
