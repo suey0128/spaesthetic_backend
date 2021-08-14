@@ -9,4 +9,8 @@ class User < ApplicationRecord
                                                     BCrypt::Engine.cost
         BCrypt::Password.create(string, cost: cost)
     end
+
+    validates :username, presence: true, uniqueness: { case_sensitive: false }
+    validates :password, presence: true, on: :create
+    validates :email, presence: true, uniqueness: true
 end
