@@ -37,7 +37,12 @@ class CollabsController < ApplicationController
 
   # DELETE /collabs/1
   def destroy
+    #destory the application instance
+    @application = Application.find_by(content_creator_id: @collab.content_creator_id, campaign_id: @collab.campaign_id )
+    @application.destroy
+    #destroy the collab instance
     @collab.destroy
+    head :no_content
   end
 
   private

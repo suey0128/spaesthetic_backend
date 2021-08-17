@@ -28,11 +28,8 @@ class ContentCreatorsController < ApplicationController
 
   # PATCH/PUT /content_creators/1
   def update
-    if @content_creator.update(content_creator_params)
+      @content_creator.update!(content_creator_params)
       render json: @content_creator
-    else
-      render json: @content_creator.errors, status: :unprocessable_entity
-    end
   end
 
   # DELETE /content_creators/1
@@ -48,7 +45,10 @@ class ContentCreatorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_creator_params
-      params.require(:content_creator).permit(:first_name, :last_name, :gender, :instagram_username, :instagram_url, :instagram_follower, :instagram_feamle_follower_ratio, :instagram_top1_follow_location, :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account)
+      params.require(:content_creator).permit(:id, :first_name, :last_name, :gender, :instagram_username, :instagram_url, 
+        :instagram_follower, :instagram_female_follower_ratio, :instagram_top1_follow_location, 
+        :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account, :profile_pic, 
+        :website, :about_me)
     end
 
     def render_not_found_response

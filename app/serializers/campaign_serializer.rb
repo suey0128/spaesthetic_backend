@@ -4,5 +4,5 @@ class CampaignSerializer < ActiveModel::Serializer
     :require_following_location, :require_following_female_ratio, :require_gender, :require_others, :description, 
     :content_sent_by, :must_post_by, 
     # from table relationships
-    :business, :invitees, :applicants, :content_creators
+    :business, :invitees, :applicants, :content_creators, :collabs, :applications
 end

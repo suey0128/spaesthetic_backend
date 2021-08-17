@@ -17,13 +17,9 @@ class ApplicationsController < ApplicationController
 
   # POST /applications
   def create
-    @application = Application.new(application_params)
-
-    if @application.save
+    @application = Application.create!(application_params)
       render json: @application, status: :created, location: @application
-    else
-      render json: @application.errors, status: :unprocessable_entity
-    end
+
   end
 
   # PATCH/PUT /applications/1
@@ -38,6 +34,7 @@ class ApplicationsController < ApplicationController
   # DELETE /applications/1
   def destroy
     @application.destroy
+    head :no_content
   end
 
   private

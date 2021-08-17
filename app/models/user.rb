@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
     #validations
     validates :username, presence: true, uniqueness: { case_sensitive: false }
-    validates :password, presence: true, on: :create
+    # validates :password, presence: true, on: :create
     validates :email, presence: true, uniqueness: true
 
     #customer methods
@@ -26,11 +26,11 @@ class User < ApplicationRecord
     end
 
     def reviews_on_me
-        self.platform_user.reviews
+        self.platform_user.reviews.map{|r| {id: r.id, reviewer:r.reviewer, content:r.content, date:r.updated_at, rating: r.rating}}
     end
 
     def reviews_i_wrote
-        self.platform_user.written_reviews
+        self.platform_user.written_reviews.map{|r| {id: r.id, reviewee:r.reviewee, content:r.content, date:r.updated_at, rating: r.rating}}
     end
 
     # as CC
@@ -45,5 +45,7 @@ class User < ApplicationRecord
             return self.platform_user.customers
         end
     end
+
+    validates :password, presence: true, on: :create
 
 end
