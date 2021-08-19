@@ -6,8 +6,9 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   def index
     @campaigns = Campaign.all
-
-    render json: @campaigns
+    future_campaigns = @campaigns.select{|c| c[:application_deadline] > Date.today}
+    render json: future_campaigns.sort_by{|c| c[:updated_at]}.reverse
+    # render json: @campaigns.sort_by{|c| c[:updated_at]}.reverse
   end
 
   # GET /campaigns/1
@@ -17,13 +18,8 @@ class CampaignsController < ApplicationController
 
   # POST /campaigns
   def create
-    @campaign = Campaign.new(campaign_params)
-
-    if @campaign.save
+    @campaign = Campaign.create!(campaign_params)
       render json: @campaign, status: :created, location: @campaign
-    else
-      render json: @campaign.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /campaigns/1
@@ -48,7 +44,10 @@ class CampaignsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def campaign_params
-      params.require(:campaign).permit(:business_id, :name, :image, :location_name, :location_type, :address, :city, :state, :zip, :country, :compensation_type, :compensation_market_value, :start_date, :end_date, :application_deadline, :require_following_minimum, :require_following_location, :require_following_female_ratio, :require_gender, :require_others, :description, :content_sent_by, :must_post_by)
+      params.require(:campaign).permit(:business_id, :name, :image, :location_name, :location_type, :address, 
+        :city, :state, :zip, :country, :compensation_type, :compensation_market_value, :start_date, :end_date, 
+        :application_deadline, :require_following_minimum, :require_following_location, :require_following_female_ratio, 
+        :require_gender, :require_others, :description, :content_sent_by, :must_post_by)
     end
 
 

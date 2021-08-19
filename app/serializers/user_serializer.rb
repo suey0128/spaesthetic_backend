@@ -7,5 +7,7 @@ class UserSerializer < ActiveModel::Serializer
     :current_campaigns, :past_campaigns, :reviews_on_me, :reviews_i_wrote,
     # as cc
     :applied_campaigns, :invited_by
+    # #as biz
+    # :invite_list
 
 end

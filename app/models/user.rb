@@ -18,34 +18,91 @@ class User < ApplicationRecord
     #customer methods
 
     def current_campaigns
-        self.platform_user.campaigns.select{|c| c.end_date > DateTime.now }
+        current_c = self.platform_user.campaigns.select{|c| c.end_date > DateTime.now }
+        current_c.map{|c| {
+            :id => c.id, :business_id=>c.business_id, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
+            :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
+            :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
+            :start_date=>c.start_date, :end_date=>c.end_date, :application_deadline=>c.application_deadline, 
+            :require_following_minimum=>c.require_following_minimum, :require_following_location=>c.require_following_location, 
+            :require_following_female_ratio=>c.require_following_female_ratio, :require_gender=>c.require_gender, 
+            :require_others=>c.require_others, :description=>c.description, :content_sent_by=>c.content_sent_by, 
+            :must_post_by=>c.must_post_by, :business=>c.business, :collabs=>c.collabs, :applications=>c.applications,
+            :updated_at=>c.updated_at, :applicants=>c.applicants, :invitees=> c.invitees, :content_creators=>c.content_creators
+         }}.sort_by{|c| c[:updated_at]}.reverse
     end
 
     def past_campaigns
-        self.platform_user.campaigns.select{|c| c.end_date < DateTime.now }
+        past_c = self.platform_user.campaigns.select{|c| c.end_date < DateTime.now }
+        past_c.map{|c| {
+            :id => c.id, :business_id=>c.business_id, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
+            :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
+            :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
+            :start_date=>c.start_date, :end_date=>c.end_date, :application_deadline=>c.application_deadline, 
+            :require_following_minimum=>c.require_following_minimum, :require_following_location=>c.require_following_location, 
+            :require_following_female_ratio=>c.require_following_female_ratio, :require_gender=>c.require_gender, 
+            :require_others=>c.require_others, :description=>c.description, :content_sent_by=>c.content_sent_by, 
+            :must_post_by=>c.must_post_by, :business=>c.business, :collabs=>c.collabs, :applications=>c.applications,
+            :updated_at=>c.updated_at, :applicants=>c.applicants, :invitees=> c.invitees, :content_creators=>c.content_creators
+         }}.sort_by{|c| c[:updated_at]}.reverse
+        
     end
 
     def reviews_on_me
-        self.platform_user.reviews.map{|r| {id: r.id, reviewer:r.reviewer, content:r.content, date:r.updated_at, rating: r.rating}}
+        self.platform_user.reviews.map{|r| {
+            id: r.id, reviewer:r.reviewer, content:r.content, date:r.updated_at, rating: r.rating
+            }}.sort_by{|r| r[:date]}.reverse
+        
     end
 
     def reviews_i_wrote
-        self.platform_user.written_reviews.map{|r| {id: r.id, reviewee:r.reviewee, content:r.content, date:r.updated_at, rating: r.rating}}
+        self.platform_user.written_reviews.map{|r| {
+            id: r.id, reviewee:r.reviewee, content:r.content, date:r.updated_at, rating: r.rating
+            }}.sort_by{|r| r[:date]}.reverse
     end
 
     # as CC
     def applied_campaigns
         if self.platform_user_type == "ContentCreator"
-            return self.platform_user.employers
+            return self.platform_user.employers.map{|c| {
+                :id => c.id, :business_id=>c.business, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
+                :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
+                :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
+                :start_date=>c.start_date, :end_date=>c.end_date, :application_deadline=>c.application_deadline, 
+                :require_following_minimum=>c.require_following_minimum, :require_following_location=>c.require_following_location, 
+                :require_following_female_ratio=>c.require_following_female_ratio, :require_gender=>c.require_gender, 
+                :require_others=>c.require_others, :description=>c.description, :content_sent_by=>c.content_sent_by, 
+                :must_post_by=>c.must_post_by, :business=>c.business, :collabs=>c.collabs, :applications=>c.applications,
+                :updated_at=>c.updated_at
+                }}.sort_by{|c| c[:updated_at]}.reverse
         end
     end
 
     def invited_by
         if self.platform_user_type == "ContentCreator"
-            return self.platform_user.customers
+            return self.platform_user.customers.map{|c| { 
+                :id => c.id, :business_id=>c.business, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
+                :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
+                :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
+                :start_date=>c.start_date, :end_date=>c.end_date, :application_deadline=>c.application_deadline, 
+                :require_following_minimum=>c.require_following_minimum, :require_following_location=>c.require_following_location, 
+                :require_following_female_ratio=>c.require_following_female_ratio, :require_gender=>c.require_gender, 
+                :require_others=>c.require_others, :description=>c.description, :content_sent_by=>c.content_sent_by, 
+                :must_post_by=>c.must_post_by, :business=>c.business, :collabs=>c.collabs, :applications=>c.applications,
+                :updated_at=>c.updated_at
+             }}.sort_by{|c| c[:updated_at]}.reverse
         end
     end
 
-    validates :password, presence: true, on: :create
+    # def invite_list
+    #     if self.platform_user_type == "Business"
+    #         invite_list = Hash.new
+    #          self.current_campaigns.map{|c| 
+    #             invite_list[c[:id]] = c[:invitees]
+    #           }
+    #           invite_list
+    #     end
+    # end
+    # validates :password, presence: true, on: :create
 
 end

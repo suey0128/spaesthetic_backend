@@ -23,11 +23,9 @@ class BusinessesController < ApplicationController
 
   # PATCH/PUT /businesses/1
   def update
-    if @business.update(business_params)
+
+    @business.update(business_params)
       render json: @business
-    else
-      render json: @business.errors, status: :unprocessable_entity
-    end
   end
 
   # DELETE /businesses/1
@@ -43,7 +41,7 @@ class BusinessesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def business_params
-      params.permit(:name,:business_type, :logo, :description, :address, :city, :state, :zip, :country, :website)
+      params.require(:business).permit(:name,:business_type, :profile_pic, :description, :address, :city, :state, :zip, :country, :website)
     end
 
 

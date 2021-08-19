@@ -17,13 +17,10 @@ class CollabsController < ApplicationController
 
   # POST /collabs
   def create
-    @collab = Collab.new(collab_params)
-
-    if @collab.save
-      render json: @collab, status: :created, location: @collab
-    else
-      render json: @collab.errors, status: :unprocessable_entity
-    end
+    @collab = Collab.create!(collab_params)
+    application = Application.find_by(collab_params)
+    application.destroy
+    render json: @collab, status: :created, location: @collab
   end
 
   # PATCH/PUT /collabs/1
@@ -38,8 +35,8 @@ class CollabsController < ApplicationController
   # DELETE /collabs/1
   def destroy
     #destory the application instance
-    @application = Application.find_by(content_creator_id: @collab.content_creator_id, campaign_id: @collab.campaign_id )
-    @application.destroy
+    # @application = Application.find_by(content_creator_id: @collab.content_creator_id, campaign_id: @collab.campaign_id )
+    # @application.destroy
     #destroy the collab instance
     @collab.destroy
     head :no_content

@@ -15,13 +15,8 @@ class ReviewsController < ApplicationController
 
   # POST /reviews
   def create
-    @review = Review.new(review_params)
-
-    if @review.save
+    @review = Review.create!(review_params)
       render json: @review, status: :created, location: @review
-    else
-      render json: @review.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /reviews/1
@@ -36,6 +31,7 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1
   def destroy
     @review.destroy
+    head :no_content
   end
 
   private

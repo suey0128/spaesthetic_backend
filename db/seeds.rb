@@ -25,19 +25,19 @@ cp1 = Campaign.create!(business_id:b1.id, name:"Coffee First", image:"", locatio
 cp2 = Campaign.create!(business_id:b1.id, name:"Coffee Second", image:"", location_name:"", location_type:"", address:"", city:"", state:"", zip:"", country:"", compensation_type:"", compensation_market_value:"", start_date:Date.parse('2021-09-01'), end_date:Date.parse('2021-09-20'), application_deadline: Date.parse('2021-08-20'), require_following_minimum:0, require_following_location:"Los Angeles", require_following_female_ratio:0, require_gender:"", require_others:"", description:"", content_sent_by:Date.parse('2021-10-1'), must_post_by: Date.parse('2021-10-10'))
 cp3 = Campaign.create!(business_id:b1.id, name:"Coffee Third", image:"", location_name:"", location_type:"", address:"", city:"", state:"", zip:"", country:"", compensation_type:"", compensation_market_value:"", start_date:Date.parse('2021-09-01'), end_date:Date.parse('2021-09-20'), application_deadline: Date.parse('2021-08-20'), require_following_minimum:0, require_following_location:"Los Angeles", require_following_female_ratio:0, require_gender:"", require_others:"", description:"", content_sent_by:Date.parse('2021-10-1'), must_post_by: Date.parse('2021-10-10'))
 cp4 = Campaign.create!(business_id:b2.id, name:"Shoeeeeeee", image:"", location_name:"", location_type:"", address:"", city:"", state:"", zip:"", country:"", compensation_type:"", compensation_market_value:"", start_date:Date.parse('2021-09-01'), end_date:Date.parse('2021-09-20'), application_deadline: Date.parse('2021-08-20'), require_following_minimum:0, require_following_location:"Los Angeles", require_following_female_ratio:0, require_gender:"", require_others:"", description:"", content_sent_by:Date.parse('2021-10-1'), must_post_by: Date.parse('2021-10-10'))
-
+cp5 = Campaign.create!(business_id:b1.id, name:"Shoeeeeeee", image:"", location_name:"", location_type:"", address:"", city:"", state:"", zip:"", country:"", compensation_type:"", compensation_market_value:"", start_date:Date.parse('2020-09-01'), end_date:Date.parse('2020-09-20'), application_deadline: Date.parse('2020-08-20'), require_following_minimum:0, require_following_location:"Los Angeles", require_following_female_ratio:0, require_gender:"", require_others:"", description:"", content_sent_by:Date.parse('2021-10-1'), must_post_by: Date.parse('2021-10-10'))
 
 puts "Seeding applications..."
-a1 = Application.create!(content_creator_id:cc1.id, campaign_id:cp1.id, note:"")
-a2 = Application.create!(content_creator_id:cc1.id, campaign_id:cp2.id, note:"")
-a3 = Application.create!(content_creator_id:cc2.id, campaign_id:cp1.id, note:"")
-a4 = Application.create!(content_creator_id:cc2.id, campaign_id:cp3.id, note:"")
-a5 = Application.create!(content_creator_id:cc2.id, campaign_id:cp4.id, note:"")
+a1 = Application.create!(content_creator_id:cc1.id, campaign_id:cp2.id, note:"")
+a2 = Application.create!(content_creator_id:cc2.id, campaign_id:cp3.id, note:"")
+a3 = Application.create!(content_creator_id:cc2.id, campaign_id:cp4.id, note:"")
+a4 = Application.create!(content_creator_id:cc1.id, campaign_id:cp5.id, note:"")
 
 puts "Seeding invitations..."
 i1 = Invitation.create!(content_creator_id:cc1.id, campaign_id:cp1.id, note:"")
 i2 = Invitation.create!(content_creator_id:cc2.id, campaign_id:cp1.id, note:"")
 i3 = Invitation.create!(content_creator_id:cc2.id, campaign_id:cp2.id, note:"")
+i4 = Invitation.create!(content_creator_id:cc2.id, campaign_id:cp5.id, note:"")
 
 puts "Seeding referralServices..."
 rs1 = ReferralService.create!(content_creator_id:cc1.id, campaign_id:cp4.id, employee_name:"Suey")
@@ -47,6 +47,7 @@ rs2 = ReferralService.create!(content_creator_id:cc2.id, campaign_id:cp4.id, emp
 puts "Seeding collabs..."
 cl1 = Collab.create!(content_creator_id:cc1.id, campaign_id:cp1.id, note:"")
 cl2 = Collab.create!(content_creator_id:cc2.id, campaign_id:cp1.id, note:"")
+cl2 = Collab.create!(content_creator_id:cc2.id, campaign_id:cp5.id, note:"")
 
 puts "Seeding reviews..."
 r1 = Review.create!(reviewee_id:cc1.id, reviewee_type:"ContentCreator", reviewer_id:b1.id, reviewer_type:"Business", rating: 5, content:"review b1 to cc1")

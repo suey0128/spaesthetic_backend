@@ -13,12 +13,11 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    # render jsoan: @user
     #when the user signup, the id is stored in session(cookie), find the user using cookie
-    user = User.find_by(id: session[:user_id])
+    @user = User.find_by(id: session[:user_id])
     # byebug #=> session[:user_id] nil 
-    if user
-        render json: user
+    if @user
+        render json: @user
     else
         render json: { error: "Not authorized"}, status: :unauthorized
     end
@@ -41,8 +40,20 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+      #update @user
+      @user.update!(user_params)
+    if params[:business] 
+      #find the business 
+      business = Business.find_by(id: @user.platform_user_id)
+      business = business.update!(business_params)
+    elsif params[:content_creator]
+      #find the cc 
+      cc = ContentCreator.find_by(id: @user.platform_user_id)
+      cc = cc.update!(content_creator_params)
+    else
       @user.update!(params.permit(:username, :email, :password, :password_confirmation, :business))
-      render json: @user
+    end
+    render json: @user
   end
 
   # DELETE /users/1
@@ -62,11 +73,13 @@ class UsersController < ApplicationController
     end
 
     def business_params
-      params[:business].permit(:name,:business_type, :logo, :description, :address, :city, :state, :zip, :country, :website)
+      params[:business].permit(:name,:business_type, :profile_pic, :description, :address, :city, :state, :zip, :country, :website)
     end
 
     def content_creator_params
-      params.require(:content_creator).permit(:first_name, :last_name, :gender, :instagram_username, :instagram_url, :instagram_follower, :instagram_feamle_follower_ratio, :instagram_top1_follow_location, :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account)
+      params.require(:content_creator).permit(:first_name, :last_name, :gender, :instagram_username, 
+        :instagram_url, :instagram_follower, :instagram_female_follower_ratio, :instagram_top1_follow_location, 
+        :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account, :website)
     end
 
     def render_not_found_response
