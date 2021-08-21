@@ -5,9 +5,42 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.all
-    future_campaigns = @campaigns.select{|c| c[:application_deadline] > Date.today}
-    render json: future_campaigns.sort_by{|c| c[:updated_at]}.reverse
+    @campaigns = Campaign.all.select{|c| c[:application_deadline] > Date.today}.sort_by{|c| c[:created_at]}.reverse
+    # available_campaigns = @campaigns.select{|c| c[:application_deadline] > Date.today}
+    # @campaigns = available_campaigns.sort_by{|c| c[:created_at]}.reverse
+
+    if params[:search]
+      @campaigns = @campaigns.select { |c|
+        "#{c.name}_#{c.location_name}_#{c.location_type}_#{c.address}_#{c.city}_#{c.state}_#{c.description}".downcase.gsub(" ", "_").include?(params[:search])
+      }
+    end
+
+    if params[:sort]
+      if params[:sort] == "newPost"
+        @campaigns = @campaigns.sort_by{|c| c[:created_at]}
+      elsif params[:sort] == "applyBy"
+        @campaigns = @campaigns.sort_by{|c| c[:application_deadline]}
+      elsif params[:sort] == "startDate"
+        @campaigns = @campaigns.sort_by{|c| c[:start_date]}
+      elsif params[:sort] == "endDate"
+        @campaigns = @campaigns.sort_by{|c| c[:end_date]}
+      elsif params[:sort] == "mustPostBy"
+        @campaigns = @campaigns.sort_by{|c| c[:must_post_by]}
+      elsif params[:sort] == "mustSentBy" 
+        @campaigns = @campaigns.sort_by{|c| c[:content_sent_by]}
+      elsif params[:sort] == "compensationMarketValue" 
+        @campaigns = @campaigns.sort_by{|c| c[:compensation_market_value]}.reverse
+      end
+    end
+
+    if params[:compensation]
+      # byebug
+      @campaigns = @campaigns.select{|c| c[:compensation_type] == params[:compensation]}
+    end
+
+
+
+    render json: @campaigns
     # render json: @campaigns.sort_by{|c| c[:updated_at]}.reverse
   end
 
@@ -47,7 +80,8 @@ class CampaignsController < ApplicationController
       params.require(:campaign).permit(:business_id, :name, :image, :location_name, :location_type, :address, 
         :city, :state, :zip, :country, :compensation_type, :compensation_market_value, :start_date, :end_date, 
         :application_deadline, :require_following_minimum, :require_following_location, :require_following_female_ratio, 
-        :require_gender, :require_others, :description, :content_sent_by, :must_post_by)
+        :require_gender, :require_others, :description, :content_sent_by, :must_post_by, :search, :sort, :compensation, 
+        :qualification)
     end
 
 

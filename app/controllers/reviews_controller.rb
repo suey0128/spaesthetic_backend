@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :update, :destroy]
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   # GET /reviews
   def index
@@ -21,11 +23,8 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1
   def update
-    if @review.update(review_params)
+     @review.update(review_params)
       render json: @review
-    else
-      render json: @review.errors, status: :unprocessable_entity
-    end
   end
 
   # DELETE /reviews/1
