@@ -5,9 +5,34 @@ class ContentCreatorsController < ApplicationController
 
   # GET /content_creators
   def index
-    @content_creators = ContentCreator.all
+    @content_creators = ContentCreator.all.shuffle
+
+    if params[:search]
+      @content_creators = ContentCreator.all.select { |cc|
+        "#{cc.first_name}_#{cc.last_name}_#{cc.instagram_username}_#{cc.about_me}_#{cc.gender}_#{cc.instagram_top1_follow_location}_#{cc.user.username}".downcase.gsub(" ", "_").include?(params[:search])
+      }
+    end
+    
+    if params[:sort]
+      if params[:sort] == "followLtoS"
+        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_follower]}.reverse
+      elsif params[:sort] == "followStoL"
+        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_follower]}
+      elsif params[:sort] == "luck"
+        @content_creators = ContentCreator.all.shuffle
+      elsif params[:sort] == "femaleFollowLtoS"
+        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_female_follower_ratio]}.reverse
+      elsif params[:sort] == "femaleFollowStoL"
+        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_female_follower_ratio]}
+      elsif params[:sort] == "mostworkedWith" 
+        @content_creators = ContentCreator.all.sort_by{|cc| cc.collabs.count}.reverse
+      elsif params[:sort] == "mostInvited" 
+        @content_creators = ContentCreator.all.sort_by{|cc| cc.invitations.count}.reverse
+      end
+    end
 
     render json: @content_creators
+
   end
 
   # GET /content_creators/1
@@ -48,7 +73,7 @@ class ContentCreatorsController < ApplicationController
       params.require(:content_creator).permit(:id, :first_name, :last_name, :gender, :instagram_username, :instagram_url, 
         :instagram_follower, :instagram_female_follower_ratio, :instagram_top1_follow_location, 
         :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account, :profile_pic, 
-        :website, :about_me)
+        :website, :about_me, :search, :sort)
     end
 
     def render_not_found_response
