@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :notifications
+  resources :direct_messages
   resources :users
   resources :content_creators
   resources :messages

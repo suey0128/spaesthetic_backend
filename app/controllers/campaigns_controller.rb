@@ -15,33 +15,75 @@ class CampaignsController < ApplicationController
       }
     end
 
+
     if params[:sort]
-      if params[:sort] == "newPost"
-        @campaigns = @campaigns.sort_by{|c| c[:created_at]}
-      elsif params[:sort] == "applyBy"
-        @campaigns = @campaigns.sort_by{|c| c[:application_deadline]}
-      elsif params[:sort] == "startDate"
-        @campaigns = @campaigns.sort_by{|c| c[:start_date]}
-      elsif params[:sort] == "endDate"
-        @campaigns = @campaigns.sort_by{|c| c[:end_date]}
-      elsif params[:sort] == "mustPostBy"
-        @campaigns = @campaigns.sort_by{|c| c[:must_post_by]}
-      elsif params[:sort] == "mustSentBy" 
-        @campaigns = @campaigns.sort_by{|c| c[:content_sent_by]}
-      elsif params[:sort] == "compensationMarketValue" 
-        @campaigns = @campaigns.sort_by{|c| c[:compensation_market_value]}.reverse
+      if params[:sort] != "created_at"
+        @campaigns = @campaigns.sort_by{|c| c[params[:sort]]}
+      else
+        @campaigns = @campaigns.sort_by{|c| c[params[:sort]]}.reverse
       end
     end
 
-    if params[:compensation]
-      # byebug
-      @campaigns = @campaigns.select{|c| c[:compensation_type] == params[:compensation]}
+
+      if params[:compensation]
+        @campaigns = @campaigns.select{|c| c[:compensation_type].downcase == params[:compensation]}
+      end
+
+      if params[:qualification]
+        cc = ContentCreator.find(params[:qualification])
+        #filter with requirement FOLLOWER NUMBER
+        #when the campaigns didn't input the requirement
+        no_follower_requirement_campaigns = @campaigns.select{|c| c[:require_following_minimum].class == NilClass || c[:require_following_minimum] == ""}
+        #when the requirement is fitting
+        fitting_follower_requirement_campaigns = @campaigns.select{|c| 
+          if  c[:require_following_minimum].class == Integer 
+            cc[:instagram_follower] >= c[:require_following_minimum]
+          end
+        }
+        @campaigns = no_follower_requirement_campaigns
+        @campaigns << fitting_follower_requirement_campaigns
+        @campaigns = @campaigns.flatten.uniq
+        #  filtered_follower_number_campaign
+
+
+        #filter with requirement FEMALE FOLLOWER RATIO 
+        #when the cc input the female following ratio
+        if cc[:instagram_female_follower_ratio].class != NilClass && cc[:instagram_female_follower_ratio] != ""
+          #when there is no campaign ratio requirement
+          no_female_ratio_requirement_campaigns =  @campaigns.select{|c| c[:require_following_female_ratio].class == NilClass || c[:require_following_female_ratio] == ""}
+          #when there is fitting requirements
+          fitting_female_ratio_requirement_campaigns = @campaigns.select{|c| 
+            if  c[:require_following_female_ratio].class == Integer 
+              cc[:instagram_female_follower_ratio] >= c[:require_following_female_ratio]
+            end
+          }
+          @campaigns = no_female_ratio_requirement_campaigns
+          @campaigns << fitting_female_ratio_requirement_campaigns
+          @campaigns = @campaigns.flatten.uniq
+          # filtered_follower_campaign
+
+        else #the cc did NOT input the female following ratio
+          @campaigns
+        end
+
+
+        #filter with requirement CC GENDER
+        #if cc disclose the gender
+        gender_arr = ['female', 'male', 'lgbtq and others']
+        if gender_arr.include?(cc[:gender].downcase) 
+          no_gender_requirement_campaigns = @campaigns.select{|c| gender_arr.include?(c[:require_gender].downcase) == false}
+          fitting_gender_requirement_campaigns = @campaigns.select{|c| c[:require_gender].downcase == cc[:gender].downcase}
+          @campaigns = no_gender_requirement_campaigns
+          @campaigns << fitting_gender_requirement_campaigns
+          @campaigns = @campaigns.flatten.uniq
+        else # cc did NOT disclose the gender
+          @campaigns
+        end
+
     end
 
-
-
     render json: @campaigns
-    # render json: @campaigns.sort_by{|c| c[:updated_at]}.reverse
+
   end
 
   # GET /campaigns/1
