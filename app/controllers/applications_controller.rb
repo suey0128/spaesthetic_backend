@@ -18,6 +18,17 @@ class ApplicationsController < ApplicationController
   # POST /applications
   def create
     @application = Application.create!(application_params)
+    campaign = Campaign.find_by(id: @application.campaign_id)
+    business = Business.find_by(id: campaign.business_id)
+    user = User.find_by(platform_user_id: business.id, platform_user_type: "Business")
+    cc = ContentCreator.find_by(id: @application.content_creator_id)
+    current_user = User.find_by(platform_user_id: cc.id, platform_user_type: "ContentCreator")
+    notification = Notification.create!(
+      user_id:user.id, 
+      source_user_id: current_user.id, 
+      content: "New Application: #{current_user.username} applied to your campaign: #{campaign.name}", 
+      read:false)
+
       render json: @application, status: :created, location: @application
 
   end

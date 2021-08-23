@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :notifications
   resources :direct_messages
   resources :users
   resources :content_creators
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   resources :campaigns
   resources :businesses
   resources :invitations
+  resources :notifications
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   post '/login/' => 'sessions#create'

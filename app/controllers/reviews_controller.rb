@@ -18,12 +18,33 @@ class ReviewsController < ApplicationController
   # POST /reviews
   def create
     @review = Review.create!(review_params)
+
+      user = User.find_by(platform_user_id: @review.reviewee_id, platform_user_type: @review.reviewee_type)
+      current_user = User.find_by(platform_user_id:@review.reviewer_id, platform_user_type: @review.reviewer_type)
+      notification = Notification.create!(
+        user_id:user.id, 
+        source_user_id: current_user.id, 
+        content: "New Review: #{current_user.username} wrote a review on you", 
+        read:false)
+
+
       render json: @review, status: :created, location: @review
+    
   end
 
   # PATCH/PUT /reviews/1
   def update
      @review.update(review_params)
+
+     user = User.find_by(platform_user_id: @review.reviewee_id, platform_user_type: @review.reviewee_type)
+     current_user = User.find_by(platform_user_id:@review.reviewer_id, platform_user_type: @review.reviewer_type)
+     notification = Notification.create!(
+       user_id:user.id, 
+       source_user_id: current_user.id, 
+       content: "Updated Review: #{current_user.username} updated the review (s)he wrote on you", 
+       read:false)
+
+
       render json: @review
   end
 
