@@ -3,6 +3,20 @@ class User < ApplicationRecord
 
     belongs_to :platform_user, polymorphic: true
 
+    has_many :notifications
+    has_many :collabs, through: :notifications, source: :notification_reason, source_type: "Collab"
+    has_many :applications, through: :notifications, source: :notification_reason, source_type: "Application"
+    has_many :invitations, through: :notifications, source: :notification_reason, source_type: "Invitation"
+    has_many :reviews, through: :notifications, source: :notification_reason, source_type: "Review"
+
+    # has_many :received_messages, as: :receiver, class_name: "DirectMessage"
+    # has_many :writers, foreign_key: :writer_id, class_name: "DirectMessage"
+    # has_many :receivers, through: :writers
+
+    # has_many :written_messages, as: :writer, class_name: "DirectMessage"
+    # has_many :receivers, foreign_key: :receiver_id, class_name: "DirectMessage"
+    # has_many :writers, through: :receivers
+
     # Returns the hash digest of the given string.
     def self.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

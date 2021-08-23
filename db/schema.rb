@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_17_054045) do
+ActiveRecord::Schema.define(version: 2021_08_23_082240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,15 @@ ActiveRecord::Schema.define(version: 2021_08_17_054045) do
     t.text "about_me"
   end
 
+  create_table "direct_messages", force: :cascade do |t|
+    t.integer "writer_id"
+    t.integer "receiver_id"
+    t.boolean "read"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.integer "content_creator_id"
     t.integer "campaign_id"
@@ -108,6 +117,17 @@ ActiveRecord::Schema.define(version: 2021_08_17_054045) do
     t.integer "receiver_id"
     t.string "receiver_type"
     t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "read"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "notification_reason_id"
+    t.string "notification_reason_type"
+    t.text "content"
+    t.boolean "read"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

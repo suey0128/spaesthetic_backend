@@ -82,7 +82,7 @@ puts "Seeding contentCreators..."
 cc1 = ContentCreator.create!( 
     first_name:"Leslie", 
     last_name:"Great", 
-    gender:"female", 
+    gender:"Female", 
     instagram_username: "@my_adorkable_adventures", 
     instagram_url:"https://www.instagram.com/my_adorkable_adventures/", 
     instagram_follower: 11600, 
@@ -99,7 +99,7 @@ cc1 = ContentCreator.create!(
 cc2 = ContentCreator.create!(
     first_name:"Angela", 
     last_name:"Amazing",
-    gender:"female", 
+    gender:"Female", 
     instagram_username: "@angela_losangeleslife", 
     instagram_url:"https://www.instagram.com/angela_losangeleslife/", 
     instagram_follower: 3361, 
@@ -133,7 +133,7 @@ cc3 = ContentCreator.create!(
 cc4 = ContentCreator.create!(
     first_name:"Victor", 
     last_name:"Rangel",
-    gender:"male", 
+    gender:"Male", 
     instagram_username: "@lifeofvic", 
     instagram_url:"https://www.instagram.com/lifeofvic/", 
     instagram_follower: 1871, 
@@ -154,7 +154,7 @@ cc4 = ContentCreator.create!(
 cc5 = ContentCreator.create!(
     first_name:"Eli", 
     last_name:"Brilliant",
-    gender:"female", 
+    gender:"Female", 
     instagram_username: "@shedreamstravel", 
     instagram_url:"https://www.instagram.com/lifeofvic/", 
     instagram_follower: 8798, 
@@ -265,7 +265,7 @@ cp1 = Campaign.create!(
     state:"CA", 
     zip:90069, 
     country:"US", 
-    compensation_type:"service", 
+    compensation_type:"Service", 
     compensation_market_value:50, 
     start_date:Date.parse('2021-09-20'), 
     end_date:Date.parse('2021-09-20'), 
@@ -292,7 +292,7 @@ cp2 = Campaign.create!(
     state:"CA", 
     zip:90049, 
     country:"US", 
-    compensation_type:"serice", 
+    compensation_type:"Service", 
     compensation_market_value:10.00, 
     start_date:Date.parse('2021-10-01'), 
     end_date:Date.parse('2021-10-30'), 
@@ -318,7 +318,7 @@ cp3 = Campaign.create!(
     state:"CA", 
     zip:90210, 
     country:"US", 
-    compensation_type:"service", 
+    compensation_type:"Service", 
     compensation_market_value:70, 
     start_date:Date.parse('2021-05-01'), 
     end_date:Date.parse('2021-05-01'), 
@@ -345,7 +345,7 @@ cp4 = Campaign.create!(
     state:"CA", 
     zip:"90660", 
     country:"US", 
-    compensation_type:"monetary", 
+    compensation_type:"Monetary", 
     compensation_market_value:20, 
     start_date:Date.parse('2021-12-3'), 
     end_date:Date.parse('2021-12-5'), 
@@ -353,7 +353,7 @@ cp4 = Campaign.create!(
     require_following_minimum:5000, 
     require_following_location:"Los Angeles", 
     require_following_female_ratio:70, 
-    require_gender:"female", 
+    require_gender:"Female", 
     require_others:"over 18 year old", 
     description:"We are promoting our store opening. We are gonna have a big flower wall decore inside the store. Come and make some awesome content!", 
     content_sent_by:Date.parse('2021-12-10'), 
@@ -371,7 +371,7 @@ cp5 = Campaign.create!(
     state: "CA", 
     zip:90071, 
     country: "US", 
-    compensation_type:"monetary", 
+    compensation_type:"Monetary", 
     compensation_market_value:"20", 
     start_date:Date.parse('2021-09-11'), 
     end_date:Date.parse('2021-09-20'), 
@@ -397,7 +397,7 @@ cp6 = Campaign.create!(
     state: "CA", 
     zip:90045, 
     country: "US", 
-    compensation_type:"service", 
+    compensation_type:"Service", 
     compensation_market_value:35.00, 
     start_date:Date.parse('2021-10-11'), 
     end_date:Date.parse('2021-10-20'), 
@@ -423,7 +423,7 @@ cp7 = Campaign.create!(
     state: "CA", 
     zip:91744, 
     country: "US", 
-    compensation_type:"service", 
+    compensation_type:"Service", 
     compensation_market_value:10.00, 
     start_date:Date.parse('2021-09-11'), 
     end_date:Date.parse('2021-09-15'), 
@@ -437,6 +437,87 @@ cp7 = Campaign.create!(
     content_sent_by:Date.parse('2021-10-06'), 
     must_post_by: Date.parse('2021-10-04')
 ) #current
+
+cp8 = Campaign.create!(
+    business_id:b5.id, 
+    name:"Who doesn't want Donuts?", 
+    image:"/img/campaign_image/cp7.png", 
+    location_name:"The Donut Hole", 
+    location_type:"restaurant", 
+    address: "15300 Amar Rd", 
+    city: "La Puente", 
+    state: "CA", 
+    zip:91744, 
+    country: "US", 
+    compensation_type:"Service", 
+    compensation_market_value:10.00, 
+    start_date:Date.parse('2021-09-11'), 
+    end_date:Date.parse('2021-09-15'), 
+    application_deadline: Date.parse('2021-09-05'), 
+    require_following_minimum:20000, 
+    require_following_location:"Los Angeles", 
+    require_following_female_ratio:0, 
+    require_gender:"", 
+    require_others:"over 18", 
+    description:"Come take some photos of our Donut Hole!", 
+    content_sent_by:Date.parse('2021-10-06'), 
+    must_post_by: Date.parse('2021-10-04')
+) #current, filter out by require_following_minimum
+
+cp9 = Campaign.create!(
+    business_id:b5.id, 
+    name:"Who doesn't want Donuts?", 
+    image:"/img/campaign_image/cp7.png", 
+    location_name:"The Donut Hole", 
+    location_type:"restaurant", 
+    address: "15300 Amar Rd", 
+    city: "La Puente", 
+    state: "CA", 
+    zip:91744, 
+    country: "US", 
+    compensation_type:"Service", 
+    compensation_market_value:10.00, 
+    start_date:Date.parse('2021-09-11'), 
+    end_date:Date.parse('2021-09-15'), 
+    application_deadline: Date.parse('2021-09-05'), 
+    require_following_minimum:2000, 
+    require_following_location:"Los Angeles", 
+    require_following_female_ratio:0, 
+    require_gender:"Male", 
+    require_others:"over 18", 
+    description:"Come take some photos of our Donut Hole!", 
+    content_sent_by:Date.parse('2021-10-06'), 
+    must_post_by: Date.parse('2021-10-04')
+) #current, filter out by require_following_gender
+
+cp10 = Campaign.create!(
+    business_id:b5.id, 
+    name:"Who doesn't want Donuts?", 
+    image:"/img/campaign_image/cp7.png", 
+    location_name:"The Donut Hole", 
+    location_type:"restaurant", 
+    address: "15300 Amar Rd", 
+    city: "La Puente", 
+    state: "CA", 
+    zip:91744, 
+    country: "US", 
+    compensation_type:"Service", 
+    compensation_market_value:10.00, 
+    start_date:Date.parse('2021-09-11'), 
+    end_date:Date.parse('2021-09-15'), 
+    application_deadline: Date.parse('2021-09-05'), 
+    require_following_minimum:2000, 
+    require_following_location:"Los Angeles", 
+    require_following_female_ratio:95, 
+    require_gender:"Male", 
+    require_others:"over 18", 
+    description:"Come take some photos of our Donut Hole!", 
+    content_sent_by:Date.parse('2021-10-06'), 
+    must_post_by: Date.parse('2021-10-04')
+) #current, filter out by require_following_female_ratio
+
+
+
 
 puts "Seeding applications..."
 a1 = Application.create!(campaign_id:cp1.id, content_creator_id:cc2.id, note:"")
@@ -459,21 +540,13 @@ a11 = Application.create!(campaign_id:cp6.id, content_creator_id:cc1.id, note:""
 puts "Seeding invitations..."
 i1 = Invitation.create!(campaign_id:cp1.id, content_creator_id:cc1.id, note:"")
 i2 = Invitation.create!(campaign_id:cp1.id, content_creator_id:cc2.id, note:"")
-# i3 = Invitation.create!(campaign_id:cp1.id, content_creator_id:cc3.id, note:"")
-# i4 = Invitation.create!(campaign_id:cp1.id, content_creator_id:cc4.id, note:"")
-i5 = Invitation.create!(campaign_id:cp1.id, content_creator_id:cc5.id, note:"")
+i3 = Invitation.create!(campaign_id:cp1.id, content_creator_id:cc5.id, note:"")
 
-# i6 = Invitation.create!(campaign_id:cp2.id, content_creator_id:cc1.id, note:"")
-# i7 = Invitation.create!(campaign_id:cp2.id, content_creator_id:cc2.id, note:"")
-# i8 = Invitation.create!(campaign_id:cp2.id, content_creator_id:cc3.id, note:"")
-# i9 = Invitation.create!(campaign_id:cp2.id, content_creator_id:cc4.id, note:"")
-# i10 = Invitation.create!(campaign_id:cp2.id, content_creator_id:cc5.id, note:"")
+i4 = Invitation.create!(campaign_id:cp3.id, content_creator_id:cc1.id, note:"")
+i5 = Invitation.create!(campaign_id:cp3.id, content_creator_id:cc3.id, note:"")
 
-i11 = Invitation.create!(campaign_id:cp3.id, content_creator_id:cc1.id, note:"")
-i12 = Invitation.create!(campaign_id:cp3.id, content_creator_id:cc3.id, note:"")
-
-i13 = Invitation.create!(campaign_id:cp4.id, content_creator_id:cc1.id, note:"")
-i14 = Invitation.create!(campaign_id:cp7.id, content_creator_id:cc1.id, note:"")
+i6 = Invitation.create!(campaign_id:cp4.id, content_creator_id:cc1.id, note:"")
+i7 = Invitation.create!(campaign_id:cp7.id, content_creator_id:cc1.id, note:"")
 
 
 puts "Seeding referralServices..."
@@ -537,11 +610,57 @@ r5 = Review.create!(
 )
 
 puts "Seeding messages..."
-m1 = Message.create!(writer_id:b1.id, writer_type:"Business", receiver_id:cc1.id, receiver_type:"ContentCreator")
-m2 = Message.create!(writer_id:cc1.id, writer_type:"ContentCreator", receiver_id:b2.id, receiver_type:"Business")
+m1 = Message.create!(writer_id:b1.id, writer_type:"Business", receiver_id:cc1.id, receiver_type:"ContentCreator", 
+    read: true, content:"b1 to cc1 first msg")
+m2 = Message.create!(writer_id:b1.id, writer_type:"Business", receiver_id:cc1.id, receiver_type:"ContentCreator",
+    read: true, content:"b1 to cc1 2nd msg")
+m3 = Message.create!(writer_id:cc1.id, writer_type:"ContentCreator", receiver_id:b1.id, receiver_type:"Business",
+    read: true, content:"cc1 to b1 3rd msg")
+m4 = Message.create!(writer_id:b1.id, writer_type:"Business", receiver_id:cc1.id, receiver_type:"ContentCreator",
+    read: true, content:"b1 to cc1 4nd msg")
+m5 = Message.create!(writer_id:b1.id, writer_type:"Business", receiver_id:cc2.id, receiver_type:"ContentCreator",
+    read: true, content:"b1 to cc2 4nd msg")
+
+puts "Seeding DMs..."
+dm1 = DirectMessage.create!(writer_id:u1.id, receiver_id:u3.id, read: true, content:"u1 to u3 first msg")
+dm2 = DirectMessage.create!(writer_id:u1.id, receiver_id:u3.id, read: true, content:"u1 to u3 2nd msg")
+dm3 = DirectMessage.create!(writer_id:u3.id, receiver_id:u1.id, read: true, content:"u3 to u1 3rd msg")
+dm4 = DirectMessage.create!(writer_id:u1.id, receiver_id:u3.id, read: true, content:"u1 to u3 4 msg")
+dm5 = DirectMessage.create!(writer_id:u1.id, receiver_id:u4.id, read: true, content:"u1 to u4 4 msg")
+
+puts "Seeding Notifications..."
+# for applications
+n1 = Notification.create!(user_id:u1.id, notification_reason_id:a1.id , notification_reason_type:"Application", content: "Application from cc2 to cp1", read:true)
+n2 = Notification.create!(user_id:u1.id, notification_reason_id:a2.id  , notification_reason_type:"Application", content: "Application from cc3 to cp1", read:true)
+n3 = Notification.create!(user_id:u1.id, notification_reason_id:a3.id  , notification_reason_type:"Application", content: "Application from cc4 to cp1", read:true)
+n4 = Notification.create!(user_id:u1.id, notification_reason_id:a4.id  , notification_reason_type:"Application", content: "Application from cc5 to cp1", read:false)
+
+n5 = Notification.create!(user_id:u1.id, notification_reason_id:a5.id  , notification_reason_type:"Application", content: "Application from cc1 to cp2", read:false)
+n6 = Notification.create!(user_id:u1.id, notification_reason_id:a6.id  , notification_reason_type:"Application", content: "Application from cc2 to cp2", read:false)
+n7 = Notification.create!(user_id:u1.id, notification_reason_id:a7.id  , notification_reason_type:"Application", content: "Application from cc3 to cp2", read:true)
+
+n8 = Notification.create!(user_id:u1.id, notification_reason_id:a8.id  , notification_reason_type:"Application", content: "Application from cc2 to cp3", read:true)
+n9 = Notification.create!(user_id:u1.id, notification_reason_id:a9.id  , notification_reason_type:"Application", content: "Application from cc4 to cp3", read:true)
+n10 = Notification.create!(user_id:u1.id, notification_reason_id:a10.id  , notification_reason_type:"Application", content: "Application from cc5 to cp3", read:true)
+
+n11 = Notification.create!(user_id:u6.id, notification_reason_id:a11.id  , notification_reason_type:"Application", content: "Application from cc1 to cp6", read:true)
+
+#for invitations
+n12 = Notification.create!(user_id:u3.id, notification_reason_id:i1.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u3", read:true)
+n13 = Notification.create!(user_id:u4.id, notification_reason_id:i2.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u4", read:true)
+n14 = Notification.create!(user_id:u10.id, notification_reason_id:i3.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u10", read:true)
+
+#for collabs
+n15 = Notification.create!(user_id:u3.id, notification_reason_id:cl1.id  , notification_reason_type:"Collab", content: "Collab from cp1 to u3", read:true)
+
+n16 = Notification.create!(user_id:u3.id, notification_reason_id:cl2.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u3", read:false)
+n17 = Notification.create!(user_id:u8.id, notification_reason_id:cl3.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u8", read:false)
+
+#for reviews
+n18 = Notification.create!(user_id:u3.id, notification_reason_id:r1.id  , notification_reason_type:"Review", content: "Review from b1 to u3", read:true)
+n19 = Notification.create!(user_id:u1.id, notification_reason_id:r2.id  , notification_reason_type:"Review", content: "Review from u3 to b1", read:true)
 
 
 puts "🌱🌱🌱🌱Done!🌱🌱🌱🌱"
 
 #brew services restart postgresql
-
