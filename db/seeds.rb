@@ -628,37 +628,69 @@ dm3 = DirectMessage.create!(writer_id:u3.id, receiver_id:u1.id, read: true, cont
 dm4 = DirectMessage.create!(writer_id:u1.id, receiver_id:u3.id, read: true, content:"u1 to u3 4 msg")
 dm5 = DirectMessage.create!(writer_id:u1.id, receiver_id:u4.id, read: true, content:"u1 to u4 4 msg")
 
+# puts "Seeding Notifications..."
+# # for applications
+# n1 = Notification.create!(user_id:u1.id, notification_reason_id:a1.id , notification_reason_type:"Application", content: "Application from cc2 to cp1", read:true)
+# n2 = Notification.create!(user_id:u1.id, notification_reason_id:a2.id  , notification_reason_type:"Application", content: "Application from cc3 to cp1", read:true)
+# n3 = Notification.create!(user_id:u1.id, notification_reason_id:a3.id  , notification_reason_type:"Application", content: "Application from cc4 to cp1", read:true)
+# n4 = Notification.create!(user_id:u1.id, notification_reason_id:a4.id  , notification_reason_type:"Application", content: "Application from cc5 to cp1", read:false)
+
+# n5 = Notification.create!(user_id:u1.id, notification_reason_id:a5.id  , notification_reason_type:"Application", content: "Application from cc1 to cp2", read:false)
+# n6 = Notification.create!(user_id:u1.id, notification_reason_id:a6.id  , notification_reason_type:"Application", content: "Application from cc2 to cp2", read:false)
+# n7 = Notification.create!(user_id:u1.id, notification_reason_id:a7.id  , notification_reason_type:"Application", content: "Application from cc3 to cp2", read:true)
+
+# n8 = Notification.create!(user_id:u1.id, notification_reason_id:a8.id  , notification_reason_type:"Application", content: "Application from cc2 to cp3", read:true)
+# n9 = Notification.create!(user_id:u1.id, notification_reason_id:a9.id  , notification_reason_type:"Application", content: "Application from cc4 to cp3", read:true)
+# n10 = Notification.create!(user_id:u1.id, notification_reason_id:a10.id  , notification_reason_type:"Application", content: "Application from cc5 to cp3", read:true)
+
+# n11 = Notification.create!(user_id:u6.id, notification_reason_id:a11.id  , notification_reason_type:"Application", content: "Application from cc1 to cp6", read:true)
+
+# #for invitations
+# n12 = Notification.create!(user_id:u3.id, notification_reason_id:i1.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u3", read:true)
+# n13 = Notification.create!(user_id:u4.id, notification_reason_id:i2.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u4", read:true)
+# n14 = Notification.create!(user_id:u10.id, notification_reason_id:i3.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u10", read:true)
+
+# #for collabs
+# n15 = Notification.create!(user_id:u3.id, notification_reason_id:cl1.id  , notification_reason_type:"Collab", content: "Collab from cp1 to u3", read:true)
+
+# n16 = Notification.create!(user_id:u3.id, notification_reason_id:cl2.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u3", read:false)
+# n17 = Notification.create!(user_id:u8.id, notification_reason_id:cl3.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u8", read:false)
+
+# #for reviews
+# n18 = Notification.create!(user_id:u3.id, notification_reason_id:r1.id  , notification_reason_type:"Review", content: "Review from b1 to u3", read:true)
+# n19 = Notification.create!(user_id:u1.id, notification_reason_id:r2.id  , notification_reason_type:"Review", content: "Review from u3 to b1", read:true)
+
 puts "Seeding Notifications..."
 # for applications
-n1 = Notification.create!(user_id:u1.id, notification_reason_id:a1.id , notification_reason_type:"Application", content: "Application from cc2 to cp1", read:true)
-n2 = Notification.create!(user_id:u1.id, notification_reason_id:a2.id  , notification_reason_type:"Application", content: "Application from cc3 to cp1", read:true)
-n3 = Notification.create!(user_id:u1.id, notification_reason_id:a3.id  , notification_reason_type:"Application", content: "Application from cc4 to cp1", read:true)
-n4 = Notification.create!(user_id:u1.id, notification_reason_id:a4.id  , notification_reason_type:"Application", content: "Application from cc5 to cp1", read:false)
+n1 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from angela_losangeleslife to cp1", read:true)
+n2 = Notification.create!(user_id:u1.id, source_user_id: u8.id, content: "Application from shellayorona to cp1", read:true)
+n3 = Notification.create!(user_id:u1.id, source_user_id: u9.id, content: "Application from lifeofvic to cp1", read:true)
+n4 = Notification.create!(user_id:u1.id, source_user_id: u10.id, content: "Application from shedreamstravel to cp1", read:false)
 
-n5 = Notification.create!(user_id:u1.id, notification_reason_id:a5.id  , notification_reason_type:"Application", content: "Application from cc1 to cp2", read:false)
-n6 = Notification.create!(user_id:u1.id, notification_reason_id:a6.id  , notification_reason_type:"Application", content: "Application from cc2 to cp2", read:false)
-n7 = Notification.create!(user_id:u1.id, notification_reason_id:a7.id  , notification_reason_type:"Application", content: "Application from cc3 to cp2", read:true)
+n5 = Notification.create!(user_id:u1.id, source_user_id: u3.id, content: "Application from namecc1 to cp2", read:false)
+n6 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from namecc2 to cp2", read:false)
+n7 = Notification.create!(user_id:u1.id, source_user_id: u8.id, content: "Application from namecc3 to cp2", read:true)
 
-n8 = Notification.create!(user_id:u1.id, notification_reason_id:a8.id  , notification_reason_type:"Application", content: "Application from cc2 to cp3", read:true)
-n9 = Notification.create!(user_id:u1.id, notification_reason_id:a9.id  , notification_reason_type:"Application", content: "Application from cc4 to cp3", read:true)
-n10 = Notification.create!(user_id:u1.id, notification_reason_id:a10.id  , notification_reason_type:"Application", content: "Application from cc5 to cp3", read:true)
+n8 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from namecc2 to cp3", read:true)
+n9 = Notification.create!(user_id:u1.id, source_user_id: u9.id, content: "Application from namecc4 to cp3", read:true)
+n10 = Notification.create!(user_id:u1.id, source_user_id: u10.id, content: "Application from namecc5 to cp3", read:true)
 
-n11 = Notification.create!(user_id:u6.id, notification_reason_id:a11.id  , notification_reason_type:"Application", content: "Application from cc1 to cp6", read:true)
+n11 = Notification.create!(user_id:u6.id, source_user_id: u3.id, content: "Application from namecc1 to cp6", read:true)
 
 #for invitations
-n12 = Notification.create!(user_id:u3.id, notification_reason_id:i1.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u3", read:true)
-n13 = Notification.create!(user_id:u4.id, notification_reason_id:i2.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u4", read:true)
-n14 = Notification.create!(user_id:u10.id, notification_reason_id:i3.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u10", read:true)
+n12 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Invitation from namecp1 to u3", read:true)
+n13 = Notification.create!(user_id:u4.id, source_user_id: u1.id, content: "Invitation from namecp1 to u4", read:true)
+n14 = Notification.create!(user_id:u10.id, source_user_id: u1.id, content: "Invitation from cp1 to u10", read:true)
 
 #for collabs
-n15 = Notification.create!(user_id:u3.id, notification_reason_id:cl1.id  , notification_reason_type:"Collab", content: "Collab from cp1 to u3", read:true)
+n15 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Collab from cp1 to u3", read:true)
 
-n16 = Notification.create!(user_id:u3.id, notification_reason_id:cl2.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u3", read:false)
-n17 = Notification.create!(user_id:u8.id, notification_reason_id:cl3.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u8", read:false)
+n16 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Collab from cp3 to u3", read:false)
+n17 = Notification.create!(user_id:u8.id, source_user_id: u1.id, content: "Collab from cp3 to u8", read:false)
 
 #for reviews
-n18 = Notification.create!(user_id:u3.id, notification_reason_id:r1.id  , notification_reason_type:"Review", content: "Review from b1 to u3", read:true)
-n19 = Notification.create!(user_id:u1.id, notification_reason_id:r2.id  , notification_reason_type:"Review", content: "Review from u3 to b1", read:true)
+n18 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Review from b1 to u3", read:true)
+n19 = Notification.create!(user_id:u1.id, source_user_id: u3.id, content: "Review from u3 to b1", read:true)
 
 
 puts "🌱🌱🌱🌱Done!🌱🌱🌱🌱"

@@ -108,6 +108,15 @@ class CampaignsController < ApplicationController
 
   # DELETE /campaigns/1
   def destroy
+    current_user = User.find_by(platform_user_id: @campaign.business_id, platform_user_type: "Business")
+    users = @campaign.content_creators
+    users.map{|u| 
+       Notification.create!(
+        user_id:u.id, 
+        source_user_id: current_user.id, 
+        content: "Campaign Cancellation: #{current_user.username} cancelled their #{@campaign.name}", 
+        read:false)
+    }
     @campaign.destroy
   end
 

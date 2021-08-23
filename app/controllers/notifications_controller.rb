@@ -1,51 +1,30 @@
 class NotificationsController < ApplicationController
-  before_action :set_notification, only: [:show, :update, :destroy]
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
-  # GET /notifications
-  def index
-    @notifications = Notification.all
+    def index
+        @notifications = Notification.all
+        
+        if params[:userId]
+            @notifications = @notifications.select{|n| n.user_id == params[:userId].to_i }
+        end
 
-    render json: @notifications
-  end
-
-  # GET /notifications/1
-  def show
-    render json: @notification
-  end
-
-  # POST /notifications
-  def create
-    @notification = Notification.new(notification_params)
-
-    if @notification.save
-      render json: @notification, status: :created, location: @notification
-    else
-      render json: @notification.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /notifications/1
-  def update
-    if @notification.update(notification_params)
-      render json: @notification
-    else
-      render json: @notification.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /notifications/1
-  def destroy
-    @notification.destroy
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_notification
-      @notification = Notification.find(params[:id])
+        render json: @notifications.sort_by{|c| c[:created_at]}.reverse, include: :source
     end
 
-    # Only allow a list of trusted parameters through.
-    def notification_params
-      params.require(:notification).permit(:user_id, :notification_reason_id, :notification_reason_type, :content, :read)
+    def update
+        notifications = Notification.all.select{|n| n.user_id == params[:id].to_i && n.read == false}
+        notifications.map{|n| n.update!(read: true)}
+        render json: notifications.sort_by{|c| c[:created_at]}.reverse
+    end
+
+
+    private
+    def render_not_found_response
+        render json: {error: "notifications not found"}, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(invalid)
+        render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 end

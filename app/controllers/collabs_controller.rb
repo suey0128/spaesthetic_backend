@@ -20,6 +20,15 @@ class CollabsController < ApplicationController
     @collab = Collab.create!(collab_params)
     application = Application.find_by(collab_params)
     application.destroy
+    campaign = Campaign.find_by(id: @collab.campaign_id)
+    current_user = User.find_by(platform_user_id: campaign.business_id, platform_user_type: "Business")
+    user = User.find_by(platform_user_id: @collab.content_creator_id, platform_user_type: "ContentCreator")
+    notification = Notification.create!(
+      user_id:user.id, 
+      source_user_id: current_user.id, 
+      content: "New Colab: #{current_user.username} hired you to their campaign: #{campaign.name}", 
+      read:false)
+
     render json: @collab, status: :created, location: @collab
   end
 
@@ -34,10 +43,19 @@ class CollabsController < ApplicationController
 
   # DELETE /collabs/1
   def destroy
-    #destory the application instance
-    # @application = Application.find_by(content_creator_id: @collab.content_creator_id, campaign_id: @collab.campaign_id )
-    # @application.destroy
-    #destroy the collab instance
+    campaign = Campaign.find_by(id: @collab.campaign_id)
+    business = User.find_by(platform_user_id: campaign.business_id, platform_user_type: "Business")
+    cc = User.find_by(platform_user_id: @collab.content_creator_id, platform_user_type: "ContentCreator")
+    notification_to_cc = Notification.create!(
+      user_id:cc.id, 
+      source_user_id: business.id, 
+      content: "Colab cancelled! the collab between #{cc.username} and #{campaign.name} is cancelled. Both parties will receive notifications on the Cancellation", 
+      read:false)
+    notification_to_business = Notification.create!(
+      user_id:business.id, 
+      source_user_id: cc.id, 
+      content: "Colab cancelled! the collab between #{cc.username} and #{campaign.name} is cancelled. Both parties will receive notifications on the Cancellation", 
+      read:false)
     @collab.destroy
     head :no_content
   end

@@ -17,13 +17,18 @@ class InvitationsController < ApplicationController
 
   # POST /invitations
   def create
-    @invitation = Invitation.new(invitation_params)
+    @invitation = Invitation.create!(invitation_params)
+    campaign = Campaign.find_by(id: @invitation.campaign_id)
+    current_user = User.find_by(platform_user_id: campaign.business_id, platform_user_type: "Business")
+    user = User.find_by(platform_user_id: @invitation.content_creator_id, platform_user_type: "ContentCreator")
+    notification = Notification.create!(
+      user_id:user.id, 
+      source_user_id: current_user.id, 
+      content: "New Invitation: #{current_user.username} invited you to their campaign: #{campaign.name}", 
+      read:false)
 
-    if @invitation.save
       render json: @invitation, status: :created, location: @invitation
-    else
-      render json: @invitation.errors, status: :unprocessable_entity
-    end
+
   end
 
   # PATCH/PUT /invitations/1
