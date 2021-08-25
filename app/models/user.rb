@@ -9,14 +9,6 @@ class User < ApplicationRecord
     has_many :invitations, through: :notifications, source: :notification_reason, source_type: "Invitation"
     has_many :reviews, through: :notifications, source: :notification_reason, source_type: "Review"
 
-    # has_many :received_messages, as: :receiver, class_name: "DirectMessage"
-    # has_many :writers, foreign_key: :writer_id, class_name: "DirectMessage"
-    # has_many :receivers, through: :writers
-
-    # has_many :written_messages, as: :writer, class_name: "DirectMessage"
-    # has_many :receivers, foreign_key: :receiver_id, class_name: "DirectMessage"
-    # has_many :writers, through: :receivers
-
     # Returns the hash digest of the given string.
     def self.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -25,12 +17,11 @@ class User < ApplicationRecord
     end
 
     #validations
-    validates :username, presence: true, uniqueness: { case_sensitive: false }
-    # validates :password, presence: true, on: :create
-    validates :email, presence: true, uniqueness: true
+    validates :username, :email, presence: true, uniqueness: { case_sensitive: false }
+    # validates :email, presence: true, uniqueness: true
+
 
     #customer methods
-
     def current_campaigns
         current_c = self.platform_user.campaigns.select{|c| c.end_date > DateTime.now }
         current_c.map{|c| {
@@ -79,7 +70,7 @@ class User < ApplicationRecord
     def applied_campaigns
         if self.platform_user_type == "ContentCreator"
             return self.platform_user.employers.map{|c| {
-                :id => c.id, :business_id=>c.business, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
+                :id => c.id, :business_id=>c.business_id, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
                 :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
                 :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
                 :start_date=>c.start_date, :end_date=>c.end_date, :application_deadline=>c.application_deadline, 
@@ -95,7 +86,7 @@ class User < ApplicationRecord
     def invited_by
         if self.platform_user_type == "ContentCreator"
             return self.platform_user.customers.map{|c| { 
-                :id => c.id, :business_id=>c.business, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
+                :id => c.id, :business_id=>c.business_id, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
                 :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
                 :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
                 :start_date=>c.start_date, :end_date=>c.end_date, :application_deadline=>c.application_deadline, 
@@ -108,15 +99,5 @@ class User < ApplicationRecord
         end
     end
 
-    # def invite_list
-    #     if self.platform_user_type == "Business"
-    #         invite_list = Hash.new
-    #          self.current_campaigns.map{|c| 
-    #             invite_list[c[:id]] = c[:invitees]
-    #           }
-    #           invite_list
-    #     end
-    # end
-    # validates :password, presence: true, on: :create
 
 end

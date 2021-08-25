@@ -25,6 +25,13 @@ class ContentCreator < ApplicationRecord
 
     has_one :user, as: :platform_user
 
+    validates :first_name, :last_name, presence: true
+    validates :instagram_username, presence: true, uniqueness: { case_sensitive: false }
+    validates :instagram_follower, presence: true, numericality: { only_integer: true }
+
+
+
+    #custom methods
     def current_campaigns
         current_c = self.campaigns.select{|c| c.end_date > DateTime.now }
         current_c.map{|c| {
