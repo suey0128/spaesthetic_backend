@@ -76,6 +76,18 @@ b5 = Business.create!(
     profile_pic: "https://via.placeholder.com/280x350.png"
 )
 
+b6 = Business.create!(
+    name: "Spaesthetic", 
+    business_type: "tech", 
+    address: "123 Wonderful Lane", 
+    city: "Seattle", 
+    state: "WA", 
+    zip:00000, 
+    country: "US", 
+    website: "www.spaesthetic.com", 
+    description: "we support local businesses and influencers by matching them ♥️", 
+    profile_pic: "/img/business_profile_pic/spaesthetic.png"
+)
 
 
 puts "Seeding contentCreators..."
@@ -172,6 +184,7 @@ cc5 = ContentCreator.create!(
     Top 25 LA Bloggers Feb2021"
 )
 
+
 puts "Seeding users..."
 u1 = User.create!(
     platform_user_id:b1.id, 
@@ -250,6 +263,14 @@ u10 = User.create!(
     platform_user_type:"ContentCreator", 
     username: "shedreamstravel", 
     email: "shedreamstravel@gmail.com", 
+    password_digest: User.digest('123')
+)
+
+u11 = User.create!(
+    platform_user_id:b6.id, 
+    platform_user_type:"Business", 
+    username: "spaesthetic", 
+    email: "infoe@spaesthetic.com", 
     password_digest: User.digest('123')
 )
 

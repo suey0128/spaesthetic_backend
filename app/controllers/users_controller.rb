@@ -34,6 +34,9 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       @user.update!(platform_user_id: content_creator.id, platform_user_type: "ContentCreator")
     end
+    Notification.create!(user_id:@user.id, source_user_id:11,
+      content: "Welcome to Spaesthetic!🥰  Please finish updating your profile to attract more collabs ♥️ ", 
+      read:false)
     session[:user_id] = @user.id
     render json: @user, status: :created, location: @user
   end
@@ -79,7 +82,7 @@ class UsersController < ApplicationController
     def content_creator_params
       params.require(:content_creator).permit(:first_name, :last_name, :gender, :instagram_username, 
         :instagram_url, :instagram_follower, :instagram_female_follower_ratio, :instagram_top1_follow_location, 
-        :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account, :website)
+        :instagram_connection_permission, :ave_rate_per_campaign, :paypal_account, :website, :profile_pic)
     end
 
     def render_not_found_response

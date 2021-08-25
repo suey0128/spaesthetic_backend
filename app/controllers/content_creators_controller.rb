@@ -15,15 +15,19 @@ class ContentCreatorsController < ApplicationController
     
     if params[:sort]
       if params[:sort] == "followLtoS"
-        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_follower]}.reverse
+        @content_creators = ContentCreator.all.select{|cc| cc[:instagram_follower] != nil }
+        @content_creators = @content_creators.sort_by{|cc| cc[:instagram_follower]}.reverse
       elsif params[:sort] == "followStoL"
-        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_follower]}
+        @content_creators = ContentCreator.all.select{|cc| cc[:instagram_follower] != nil }
+        @content_creators = @content_creators.sort_by{|cc| cc[:instagram_follower]}
       elsif params[:sort] == "luck"
         @content_creators = ContentCreator.all.shuffle
       elsif params[:sort] == "femaleFollowLtoS"
-        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_female_follower_ratio]}.reverse
+        @content_creators = ContentCreator.all.select{|cc| cc[:instagram_female_follower_ratio] != nil }
+        @content_creators = @content_creators.sort_by{|cc| cc[:instagram_female_follower_ratio]}.reverse
       elsif params[:sort] == "femaleFollowStoL"
-        @content_creators = ContentCreator.all.sort_by{|cc| cc[:instagram_female_follower_ratio]}
+        @content_creators = ContentCreator.all.select{|cc| cc[:instagram_female_follower_ratio] != nil }
+        @content_creators = @content_creators.sort_by{|cc| cc[:instagram_female_follower_ratio]}
       elsif params[:sort] == "mostworkedWith" 
         @content_creators = ContentCreator.all.sort_by{|cc| cc.collabs.count}.reverse
       elsif params[:sort] == "mostInvited" 
@@ -42,13 +46,9 @@ class ContentCreatorsController < ApplicationController
 
   # POST /content_creators
   def create
-    @content_creator = ContentCreator.new(content_creator_params)
-
-    if @content_creator.save
+    @content_creator = ContentCreator.create!(content_creator_params)
       render json: @content_creator, status: :created, location: @content_creator
-    else
-      render json: @content_creator.errors, status: :unprocessable_entity
-    end
+
   end
 
   # PATCH/PUT /content_creators/1
