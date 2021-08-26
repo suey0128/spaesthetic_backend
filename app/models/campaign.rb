@@ -12,4 +12,7 @@ class Campaign < ApplicationRecord
 
     has_many :referral_services, dependent: :destroy
     has_many :choices, through: :referral_services
+
+    validates :start_date, :end_date, :application_deadline, :content_sent_by, :must_post_by,
+        :name,:description, presence: true
 end
