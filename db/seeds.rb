@@ -168,7 +168,7 @@ cc5 = ContentCreator.create!(
     last_name:"Brilliant",
     gender:"Female", 
     instagram_username: "@shedreamstravel", 
-    instagram_url:"https://www.instagram.com/lifeofvic/", 
+    instagram_url:"https://www.instagram.com/shedreamstravel/", 
     instagram_follower: 8798, 
     instagram_female_follower_ratio:80, 
     instagram_top1_follow_location:"Los Angeles", 
@@ -322,8 +322,8 @@ cp2 = Campaign.create!(
     require_following_location:"Los Angeles", 
     require_following_female_ratio:0, 
     require_gender:"", 
-    require_others:"Alfred Coffee is offering free coffee for the whole October! all our collab influencers can get free coffee under $10.", 
-    description:"Alfred Coffee Brentwood", 
+    require_others:"over 18", 
+    description:"Alfred Coffee is offering free coffee for the whole October! all our collab influencers can get free coffee under $10.", 
     content_sent_by:Date.parse('2021-11-10'), 
     must_post_by: Date.parse('2021-11-11')
 ) #current
@@ -461,8 +461,8 @@ cp7 = Campaign.create!(
 
 cp8 = Campaign.create!(
     business_id:b5.id, 
-    name:"Who doesn't want Donuts?", 
-    image:"/img/campaign_image/cp7.png", 
+    name:"Free Donuts?", 
+    image:"https://media.nbclosangeles.com/2021/06/donutday_ericamaeallen.jpeg?quality=85&strip=all&resize=1200%2C675", 
     location_name:"The Donut Hole", 
     location_type:"restaurant", 
     address: "15300 Amar Rd", 
@@ -472,72 +472,18 @@ cp8 = Campaign.create!(
     country: "US", 
     compensation_type:"Service", 
     compensation_market_value:10.00, 
-    start_date:Date.parse('2021-09-11'), 
-    end_date:Date.parse('2021-09-15'), 
-    application_deadline: Date.parse('2021-09-05'), 
+    start_date:Date.parse('2021-12-11'), 
+    end_date:Date.parse('2021-12-15'), 
+    application_deadline: Date.parse('2021-12-05'), 
     require_following_minimum:20000, 
     require_following_location:"Los Angeles", 
     require_following_female_ratio:0, 
     require_gender:"", 
     require_others:"over 18", 
     description:"Come take some photos of our Donut Hole!", 
-    content_sent_by:Date.parse('2021-10-06'), 
-    must_post_by: Date.parse('2021-10-04')
+    content_sent_by:Date.parse('2022-01-01'), 
+    must_post_by: Date.parse('2022-01-01')
 ) #current, filter out by require_following_minimum
-
-cp9 = Campaign.create!(
-    business_id:b5.id, 
-    name:"Who doesn't want Donuts?", 
-    image:"/img/campaign_image/cp7.png", 
-    location_name:"The Donut Hole", 
-    location_type:"restaurant", 
-    address: "15300 Amar Rd", 
-    city: "La Puente", 
-    state: "CA", 
-    zip:91744, 
-    country: "US", 
-    compensation_type:"Service", 
-    compensation_market_value:10.00, 
-    start_date:Date.parse('2021-09-11'), 
-    end_date:Date.parse('2021-09-15'), 
-    application_deadline: Date.parse('2021-09-05'), 
-    require_following_minimum:2000, 
-    require_following_location:"Los Angeles", 
-    require_following_female_ratio:0, 
-    require_gender:"Male", 
-    require_others:"over 18", 
-    description:"Come take some photos of our Donut Hole!", 
-    content_sent_by:Date.parse('2021-10-06'), 
-    must_post_by: Date.parse('2021-10-04')
-) #current, filter out by require_following_gender
-
-cp10 = Campaign.create!(
-    business_id:b5.id, 
-    name:"Who doesn't want Donuts?", 
-    image:"/img/campaign_image/cp7.png", 
-    location_name:"The Donut Hole", 
-    location_type:"restaurant", 
-    address: "15300 Amar Rd", 
-    city: "La Puente", 
-    state: "CA", 
-    zip:91744, 
-    country: "US", 
-    compensation_type:"Service", 
-    compensation_market_value:10.00, 
-    start_date:Date.parse('2021-09-11'), 
-    end_date:Date.parse('2021-09-15'), 
-    application_deadline: Date.parse('2021-09-05'), 
-    require_following_minimum:2000, 
-    require_following_location:"Los Angeles", 
-    require_following_female_ratio:95, 
-    require_gender:"Male", 
-    require_others:"over 18", 
-    description:"Come take some photos of our Donut Hole!", 
-    content_sent_by:Date.parse('2021-10-06'), 
-    must_post_by: Date.parse('2021-10-04')
-) #current, filter out by require_following_female_ratio
-
-
 
 
 puts "Seeding applications..."
@@ -649,47 +595,16 @@ dm3 = DirectMessage.create!(writer_id:u3.id, receiver_id:u1.id, read: true, cont
 dm4 = DirectMessage.create!(writer_id:u1.id, receiver_id:u3.id, read: true, content:"u1 to u3 4 msg")
 dm5 = DirectMessage.create!(writer_id:u1.id, receiver_id:u4.id, read: true, content:"u1 to u4 4 msg")
 
-# puts "Seeding Notifications..."
-# # for applications
-# n1 = Notification.create!(user_id:u1.id, notification_reason_id:a1.id , notification_reason_type:"Application", content: "Application from cc2 to cp1", read:true)
-# n2 = Notification.create!(user_id:u1.id, notification_reason_id:a2.id  , notification_reason_type:"Application", content: "Application from cc3 to cp1", read:true)
-# n3 = Notification.create!(user_id:u1.id, notification_reason_id:a3.id  , notification_reason_type:"Application", content: "Application from cc4 to cp1", read:true)
-# n4 = Notification.create!(user_id:u1.id, notification_reason_id:a4.id  , notification_reason_type:"Application", content: "Application from cc5 to cp1", read:false)
-
-# n5 = Notification.create!(user_id:u1.id, notification_reason_id:a5.id  , notification_reason_type:"Application", content: "Application from cc1 to cp2", read:false)
-# n6 = Notification.create!(user_id:u1.id, notification_reason_id:a6.id  , notification_reason_type:"Application", content: "Application from cc2 to cp2", read:false)
-# n7 = Notification.create!(user_id:u1.id, notification_reason_id:a7.id  , notification_reason_type:"Application", content: "Application from cc3 to cp2", read:true)
-
-# n8 = Notification.create!(user_id:u1.id, notification_reason_id:a8.id  , notification_reason_type:"Application", content: "Application from cc2 to cp3", read:true)
-# n9 = Notification.create!(user_id:u1.id, notification_reason_id:a9.id  , notification_reason_type:"Application", content: "Application from cc4 to cp3", read:true)
-# n10 = Notification.create!(user_id:u1.id, notification_reason_id:a10.id  , notification_reason_type:"Application", content: "Application from cc5 to cp3", read:true)
-
-# n11 = Notification.create!(user_id:u6.id, notification_reason_id:a11.id  , notification_reason_type:"Application", content: "Application from cc1 to cp6", read:true)
-
-# #for invitations
-# n12 = Notification.create!(user_id:u3.id, notification_reason_id:i1.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u3", read:true)
-# n13 = Notification.create!(user_id:u4.id, notification_reason_id:i2.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u4", read:true)
-# n14 = Notification.create!(user_id:u10.id, notification_reason_id:i3.id  , notification_reason_type:"Invitation", content: "Invitation from cp1 to u10", read:true)
-
-# #for collabs
-# n15 = Notification.create!(user_id:u3.id, notification_reason_id:cl1.id  , notification_reason_type:"Collab", content: "Collab from cp1 to u3", read:true)
-
-# n16 = Notification.create!(user_id:u3.id, notification_reason_id:cl2.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u3", read:false)
-# n17 = Notification.create!(user_id:u8.id, notification_reason_id:cl3.id  , notification_reason_type:"Collab", content: "Collab from cp3 to u8", read:false)
-
-# #for reviews
-# n18 = Notification.create!(user_id:u3.id, notification_reason_id:r1.id  , notification_reason_type:"Review", content: "Review from b1 to u3", read:true)
-# n19 = Notification.create!(user_id:u1.id, notification_reason_id:r2.id  , notification_reason_type:"Review", content: "Review from u3 to b1", read:true)
 
 puts "Seeding Notifications..."
 # for applications
 n1 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from angela_losangeleslife to cp1", read:true)
 n2 = Notification.create!(user_id:u1.id, source_user_id: u8.id, content: "Application from shellayorona to cp1", read:true)
 n3 = Notification.create!(user_id:u1.id, source_user_id: u9.id, content: "Application from lifeofvic to cp1", read:true)
-n4 = Notification.create!(user_id:u1.id, source_user_id: u10.id, content: "Application from shedreamstravel to cp1", read:false)
+n4 = Notification.create!(user_id:u1.id, source_user_id: u10.id, content: "Application from shedreamstravel to cp1", read:true)
 
-n5 = Notification.create!(user_id:u1.id, source_user_id: u3.id, content: "Application from namecc1 to cp2", read:false)
-n6 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from namecc2 to cp2", read:false)
+n5 = Notification.create!(user_id:u1.id, source_user_id: u3.id, content: "Application from namecc1 to cp2", read:true)
+n6 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from namecc2 to cp2", read:true)
 n7 = Notification.create!(user_id:u1.id, source_user_id: u8.id, content: "Application from namecc3 to cp2", read:true)
 
 n8 = Notification.create!(user_id:u1.id, source_user_id: u4.id, content: "Application from namecc2 to cp3", read:true)
@@ -706,8 +621,8 @@ n14 = Notification.create!(user_id:u10.id, source_user_id: u1.id, content: "Invi
 #for collabs
 n15 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Collab from cp1 to u3", read:true)
 
-n16 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Collab from cp3 to u3", read:false)
-n17 = Notification.create!(user_id:u8.id, source_user_id: u1.id, content: "Collab from cp3 to u8", read:false)
+n16 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Collab from cp3 to u3", read:true)
+n17 = Notification.create!(user_id:u8.id, source_user_id: u1.id, content: "Collab from cp3 to u8", read:true)
 
 #for reviews
 n18 = Notification.create!(user_id:u3.id, source_user_id: u1.id, content: "Review from b1 to u3", read:true)

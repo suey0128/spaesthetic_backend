@@ -18,7 +18,7 @@ class ContentCreatorsController < ApplicationController
         @content_creators = ContentCreator.all.select{|cc| cc[:instagram_follower] != nil }
         @content_creators = @content_creators.sort_by{|cc| cc[:instagram_follower]}.reverse
       elsif params[:sort] == "followStoL"
-        @content_creators = ContentCreator.all.select{|cc| cc[:instagram_follower] != nil }
+        @content_creators = ContentCreator.all.select{|cc| cc[:instagram_follower] != nil   }
         @content_creators = @content_creators.sort_by{|cc| cc[:instagram_follower]}
       elsif params[:sort] == "luck"
         @content_creators = ContentCreator.all.shuffle

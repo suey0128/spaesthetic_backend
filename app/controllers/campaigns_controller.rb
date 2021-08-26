@@ -6,8 +6,6 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   def index
     @campaigns = Campaign.all.select{|c| c[:application_deadline] > Date.today}.sort_by{|c| c[:created_at]}.reverse
-    # available_campaigns = @campaigns.select{|c| c[:application_deadline] > Date.today}
-    # @campaigns = available_campaigns.sort_by{|c| c[:created_at]}.reverse
 
     if params[:search]
       @campaigns = @campaigns.select { |c|
@@ -17,10 +15,13 @@ class CampaignsController < ApplicationController
 
 
     if params[:sort]
-      if params[:sort] != "created_at"
-        @campaigns = @campaigns.sort_by{|c| c[params[:sort]]}
-      else
+
+      if params[:sort] == "created_at" || params[:sort] == "compensation_market_value"
+        @campaigns = @campaigns.select{|cc| cc[params[:sort]] != nil }
         @campaigns = @campaigns.sort_by{|c| c[params[:sort]]}.reverse
+      else
+        @campaigns = @campaigns.select{|cc| cc[params[:sort]] != nil }
+        @campaigns = @campaigns.sort_by{|c| c[params[:sort]]}
       end
     end
 
