@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   resources :businesses
   resources :invitations
   resources :notifications
+  resources :sessions
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  post 'https://spaesthetic.herokuapp.com/login/' => 'sessions#create'
-  delete 'https://spaesthetic.herokuapp.com/logout/' => 'sessions#destroy'
-  get 'https://spaesthetic.herokuapp.com/me/' => 'users#show'
+  post '/login/' => 'sessions#create'
+  delete '/logout/' => 'sessions#destroy'
+  get '/me/' => 'users#show'
 end
