@@ -15,7 +15,12 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  post '/login/' => 'sessions#create'
-  delete '/logout/' => 'sessions#destroy'
+  # post '/login/' => 'sessions#create'
+  # delete '/logout/' => 'sessions#destroy'
   get '/me/' => 'users#show'
+
+  #for deployment
+  post "/login", to: "users#login"
+  post "/logout", to: "users#logout"
+  # get "/autologin", to: "users#autologin"
 end

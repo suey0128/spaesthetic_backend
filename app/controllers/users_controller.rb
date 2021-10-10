@@ -64,6 +64,25 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  # For user Login
+  def login
+    user = User.find_by(username: params[:user][:username])
+    if user&.authenticate(params[:user][:password])
+
+        session[:init] = true
+        session[:user_id] = user.id
+        render json: user
+    else
+        render json: { errors: ["Incorrect username and/or password"] }, status: :unauthorized
+    end
+  end
+
+  # For user logout
+  def logout
+    session.delete(:user_id)
+    head :no_content
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
