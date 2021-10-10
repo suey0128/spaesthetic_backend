@@ -85,7 +85,7 @@ class User < ApplicationRecord
 
     def invited_by
         if self.platform_user_type == "ContentCreator"
-            return self.platform_user.customers.map{|c| { 
+            return self.platform_user.inviters.map{|c| { 
                 :id => c.id, :business_id=>c.business_id, :name=>c.name, :image=>c.image, :location_name=>c.location_name, 
                 :location_type=>c.location_type, :address=>c.address, :city=>c.city, :state=>c.state, :zip=>c.zip, :country=>c.country, 
                 :compensation_type=>c.compensation_type, :compensation_market_value=>c.compensation_market_value, 
