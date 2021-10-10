@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   def show
     #when the user signup, the id is stored in session(cookie), find the user using cookie
     @user = User.find_by(id: session[:user_id])
-    # byebug #=> session[:user_id] nil 
     if @user
         render json: @user
     else
