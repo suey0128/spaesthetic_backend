@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :notifications
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  post '/login/' => 'sessions#create'
-  delete '/logout/' => 'sessions#destroy'
-  get '/me/' => 'users#show'
+  post 'https://spaesthetic.herokuapp.com/login/' => 'sessions#create'
+  delete 'https://spaesthetic.herokuapp.com/logout/' => 'sessions#destroy'
+  get 'https://spaesthetic.herokuapp.com/me/' => 'users#show'
 end
