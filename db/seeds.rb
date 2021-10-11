@@ -120,7 +120,7 @@ cc2 = ContentCreator.create!(
     instagram_connection_permission: true, 
     ave_rate_per_campaign: 0, 
     paypal_account: "angela_losangeleslife@gmail.com", 
-    profile_pic:"/img/cc_profile_pic/angela_losangeleslife.png", 
+    profile_pic:"https://spaesthetic.herokuapp.com/img/cc_profile_pic/angela_losangeleslife.png", 
     website:"", 
     about_me:"LA | ART and ADVENTURES, Digital Creator, LA girl and my LA life. Come explore with me!📍INSTAWORTHY LOCATIONS, 📍PHOTO SPOTS, 📍LA TRAVEL, 📍LA ART/MURALS, 🔎💃🏼❤️💯🎨📸"
 )
@@ -137,7 +137,7 @@ cc3 = ContentCreator.create!(
     instagram_connection_permission: true, 
     ave_rate_per_campaign: 0, 
     paypal_account: "shellayorona@gmail.com", 
-    profile_pic:"/img/cc_profile_pic/shellayorona.png",
+    profile_pic:"https://spaesthetic.herokuapp.com/img/cc_profile_pic/shellayorona.png",
     website:"", 
     about_me:"🌊California🌴 faith/family/influencer💃🏻 Live like Sam😇 "
 )
@@ -154,7 +154,7 @@ cc4 = ContentCreator.create!(
     instagram_connection_permission: true, 
     ave_rate_per_campaign: 0, 
     paypal_account: "lifeofvic@gmail.com", 
-    profile_pic:"/img/cc_profile_pic/lifeofvic.png",
+    profile_pic:"https://spaesthetic.herokuapp.com/img/cc_profile_pic/lifeofvic.png",
     website:"https://podcasts.apple.com/us/podcast/lifehacksla-hacking-the-best-of-los-angeles/id1468920120?i=1000498171894", 
     about_me:"Personal Blog.
     Exploring SoCal one weekend at a time.
@@ -175,7 +175,7 @@ cc5 = ContentCreator.create!(
     instagram_connection_permission: true, 
     ave_rate_per_campaign: 0, 
     paypal_account: "shedreamstravel@gmail.com", 
-    profile_pic:"/img/cc_profile_pic/shedreamstravel.png",
+    profile_pic:"https://spaesthetic.herokuapp.com/img/cc_profile_pic/shedreamstravel.png",
     website:"https://podcasts.apple.com/us/podcast/lifehacksla-hacking-the-best-of-los-angeles/id1468920120?i=1000498171894", 
     about_me:"Eli TRAVEL BLOGGER & CREATOR
     Blogger
