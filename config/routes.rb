@@ -17,10 +17,10 @@ Rails.application.routes.draw do
 
   # post '/login/' => 'sessions#create'
   # delete '/logout/' => 'sessions#destroy'
-  get '/me/' => 'users#show'
+  # get '/me/' => 'users#show'
 
   #for deployment
   post "/login", to: "users#login"
   post "/logout", to: "users#logout"
-  # get "/autologin", to: "users#autologin"
+  get "/me", to: "users#show"
 end
